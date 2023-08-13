@@ -1,13 +1,12 @@
 video {
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
+  max-width: 100%
 }
 
 .vidoverlay {
-  position: absolute;
+  position: fixed;
   mix-blend-mode: screen;
   opacity: 50%;
 }
@@ -32,7 +31,7 @@ html {
 }
 
 #overlay-toggle {
-  position:absolute;
+  position:fixed;
   display: none;
 }
 
@@ -55,7 +54,7 @@ html {
 }
 
 .fullscreen {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -86,7 +85,7 @@ span::before {
 }
 
 #center {
-  position:absolute;
+  position:fixed;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
@@ -111,7 +110,7 @@ span::before {
 }
 
 #canvas-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
