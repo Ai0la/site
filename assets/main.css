@@ -1,5 +1,5 @@
 video {
-  position: static;
+  position: absolute;
   right: 0;
   bottom: 0;
   min-width: 100%;
@@ -7,7 +7,7 @@ video {
 }
 
 .vidoverlay {
-  position: static;
+  position: absolute;
   mix-blend-mode: screen;
   opacity: 50%;
 }
@@ -55,7 +55,7 @@ html {
 }
 
 .fullscreen {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
