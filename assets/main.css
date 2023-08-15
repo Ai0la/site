@@ -121,6 +121,7 @@ span::before {
   -moz-transform:translate(-50%,-50%);
   -ms-transform:translate(-50%,-50%);
   -o-transform:translate(-50%,-50%)
+  -webkit-text-stroke: 4px white;
 }
 
 #overlay-toggle:checked ~ .overlay {
