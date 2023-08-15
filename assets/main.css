@@ -97,13 +97,14 @@ body {
 
 .hover {
   text-decoration:none;
-  color:#FFFFFF!important;
+  text-stroke: 4px #fff;
+  color:gray!important;
   transition:.4s!important;
 }
 
 .hover:hover {
   transition:.4s!important;
-  color:gray!important
+  color:#FFFFFF!important
 }
 
 span::before {
