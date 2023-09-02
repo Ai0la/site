@@ -97,14 +97,18 @@ body {
 
 .hover {
   text-decoration:none;
-  text-stroke: 4px #fff;
-  color:gray!important;
+  -webkit-text-stroke-width:thin;
+  -webkit-text-stroke-color: #000000;
+  color:rgb(119, 119, 119)!important;
   transition:.4s!important;
 }
 
 .hover:hover {
   transition:.4s!important;
-  color:#FFFFFF!important
+  color:#ffffff!important;
+  stroke: yellow;
+  -webkit-text-stroke-width:thin;
+  -webkit-text-stroke-color: #000000;
 }
 
 span::before {
@@ -121,8 +125,6 @@ span::before {
   -moz-transform:translate(-50%,-50%);
   -ms-transform:translate(-50%,-50%);
   -o-transform:translate(-50%,-50%)
-  -webkit-text-stroke: 10px white;
-  color: navy;
 }
 
 #overlay-toggle:checked ~ .overlay {
