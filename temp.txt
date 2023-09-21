@@ -1,65 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-    <style type="text/css">
-        #main-header {
-        text-align: center;
-        background-color: black;
-        color: white;
-        padding: 10px;
-        }
-        #main-footer{
-text-align: center;
-font-size: 18px;
-}
-</style>
-<meta name="description" content="Awesome blog by Aiola">
-<meta name="keywords" content="blog, web design blog, web dev blog, aiola">
-</head>
-<body>
-    <header id="main-header">
-        <h1>My Website</h1>
-    </header>
-    <a href="index.html">Go to Home Page</a>
-    <section>
-        <article>
-            <article class="post">
-            <h3>Blog Post One</h3>
-            <small> Hosted by Aiola on September 19, 2023</small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quia, molestiae exercitationem repellat, suscipit nam id blanditiis inventore voluptas deserunt incidunt odit commodi iusto aliquam ut possimus vero. Facere, in nihil omnis placeat numquam dolor debitis ipsa. Nulla esse quas inventore assumenda temporibus suscipit reprehenderit sunt atque, perspiciatis soluta eos ipsam, porro error ea. Deserunt, quas. Porro molestiae aliquam saepe!</p>
-        </article>
-        <a href="post.html">Read More</a>
-        <article>
-            <article class="post">
-            <h3>Blog Post Two</h3>
-            <small> Hosted by Aiola on September 19, 2023</small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quia, molestiae exercitationem repellat, suscipit nam id blanditiis inventore voluptas deserunt incidunt odit commodi iusto aliquam ut possimus vero. Facere, in nihil omnis placeat numquam dolor debitis ipsa. Nulla esse quas inventore assumenda temporibus suscipit reprehenderit sunt atque, perspiciatis soluta eos ipsam, porro error ea. Deserunt, quas. Porro molestiae aliquam saepe!</p>
-        </article>
-        <a href="post.html">Read More</a>
-        <article>
-            <article class="post">
-            <h3>Blog Post Three</h3>
-            <small> Hosted by Aiola on September 19, 2023</small>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quia, molestiae exercitationem repellat, suscipit nam id blanditiis inventore voluptas deserunt incidunt odit commodi iusto aliquam ut possimus vero. Facere, in nihil omnis placeat numquam dolor debitis ipsa. Nulla esse quas inventore assumenda temporibus suscipit reprehenderit sunt atque, perspiciatis soluta eos ipsam, porro error ea. Deserunt, quas. Porro molestiae aliquam saepe!</p>
-        </article>
-        <a href="post.html">Read More</a>
-    </section>
-    <aside>
-        <nav>
-        <ul> 
-        <li><a href="#">Category 1</a></li>
-        <li><a href="#">Category 2</a></li>
-        <li><a href="#">Category 3</a></li>
-        </ul>
-        </nav>
-        </aside>
-        <footer id="main-footer">
-            <p>Copyright Symbol&copy; 2023, My Website
-            </footer>
-
-</body>
+    <br>
+    <div>
+        <form action="process.php" method="POST">
+        <label> First Name</label>
+        <input type="text" name="firstName" placeholder="Enter first name"></input>
+        </form>
+        </div>
+        <br>
+        <div>
+        <label> Last Name</label>
+        <input type="text" name="lastName"></input>
+        </form>
+        </div>
+        <div>
+        <label> First Name</label>
+        <input type="text" name="firstName"></input>
+        </form>
+        </div>
+        <br>
+        <div>
+        <label>Email</label>
+        <input type="email" name="email"></input>
+        </form>
+        </div>
+        <br>
+        <div>
+        <label>Message</label>
+        <textarea name="message"></textarea>
+        </div>
+        <br>
+        <div>
+        <label>Gender</label>
+        <select name="gender" name="Gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+        </select>
+        </div>
+        <br>
+        <div>
+        <label>Age: </label>
+        <input type="number" name="age" value="30">
+        </div>
+        <br>
+        <div>
+        <label>Birthday: </label>
+        <input type="date" name="birthday"> 
+        </div>
+        <br>
+        <input type="submit" name="submit" value="Submit">
+        </form>
+        <blockquote cite="https://www.keepinspiring.me/famous-quotes/">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lacinia euismod odio et auctor. Pellentesque id consequat ex. Nunc volutpat tortor vel dapibus posuere. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc porta suscipit sem, vel accumsan lacus. Sed a turpis orci. Vivamus non ligula lacus. Ut vestibulum ut nibh id volutpat. Praesent arcu risus, tincidunt at finibus sit amet, dictum porttitor urna.
+            
+            Donec luctus metus in neque aliquam rutrum. Phasellus at aliquam lectus. Nam in nulla quis nibh dignissim porttitor et eu lacus. Ut suscipit sem at dolor faucibus, vel rhoncus velit suscipit. Quisque pellentesque dui id convallis imperdiet. Cras eleifend placerat elit porta dignissim. Nulla molestie enim eget interdum facilisis. Etiam pharetra lorem eros. Nulla consequat ex sed fermentum faucibus. Etiam a placerat neque. Nullam enim turpis, cursus quis tortor eu, ullamcorper laoreet ipsum.
+            </blockquote>
+            <p>I currently attend <abbr title="Paulding County High School"> PCHS </abbr>and I am taking computer science<p>
+                <p> <cite>HTML crash course</cite> by Mr. Wally Hall</p>
+                <a href="https://nodeunblockercom-1.ai0la.repl.co/proxy/https:/discord.com/api/download?platform=osx" download><p>d</p></a>
+                </body>
 </html>
