@@ -150,11 +150,12 @@ span::before {
     height: 100%;
     z-index: -1;
 }
+  @font-face { 
+    font-family: Graffiti; src: url(/font.ttf); 
+    } 
 
-@font-face {
-  font-family: "Graffiti";
-  src: url(/font.ttf);
-}
+  @font-face { 
+    font-family: Graffiti; font-weight: bold; src: url(/font.ttf);
 
 @media(hover: hover) {
   .overlayhover {
