@@ -54,7 +54,7 @@ html {
 }
 
 .graffiti {
-  font-family: "Graffiti", sans-serif;
+  font-family: "Graffiti", monospace, sans-serif;
   font-size: 100px;
 }
 
