@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 
@@ -20,13 +19,13 @@
 
     function audioPlay() {
       var audio = document.getElementById("audio");
-      audio.volume = 0.0;
+      audio.volume = 1.0;
       audio.play();
     }
   </script>
 
   <video loop="" preload="auto" class="vidoverlay" id="video" playsinline>
-    <source src="https://cdn.discordapp.com/attachments/919357209568223242/1140908111973064764/Absolute_in_doubt.mp4" type="video/mp4">
+    <source src="./assets/video.mp4" type="video/mp4">
   </video>
 
   <audio loop="" preload="auto" id="audio">
@@ -36,25 +35,25 @@
   <input type="checkbox" autocomplete="off" id="overlay-toggle">
   <div class="overlay fullscreen">
     <label for="overlay-toggle" onclick="videoPlay(); audioPlay(); ">
-      <span class="overlayno-hover hover" style="font-family: monospace; font-size: 0.6em;">click</span>
-      <span class="overlayhover hover" style="font-family: monospace; font-size: 0.6em;">click</span>
+      <span class="overlayno-hover hover" style="font-family: Graffiti; font-size: 100px;">click</span>
+      <span class="overlayhover hover" style="font-family: Graffiti; font-size: 100px;">click</span>
     </label>
   </div>
 
   <div id="center" align="center">
     <span>
-      <p class="hover graffiti" style="font-size: 100px">aiola
+      <p class="hover graffiti" style="font-size: 100px; font-family:Graffiti;">aiola
       </p>
       <p class="hover"></p>
 
       <p class="hover">
-        <a href="https://ogusers.gg/5" target="_blank" class="hover">ogusers</a>
-        <a href="https://discordapp.com/users/759350981040930836" target="_blank" class="hover">discord</a>
-        <a href="https://discord.gg/exchs" target="_blank" class="hover">exchange</a>
+        <a href="https://ogusers.gg/5" target="_blank" class="hover" style="font-family: Graffiti; font-size: 40px;">ogusers </a>
+        <a href="https://discordapp.com/users/759350981040930836" target="_blank" class="hover" style="font-family: Graffiti; font-size: 40px;">discord </a>
+        <a href="https://discord.gg/exchs" target="_blank" class="hover" style="font-family: Graffiti; font-size: 40px;">exchange</a>
       </p>
       <p class="hover"></p>
       <p></p>
     </span>
   </div>
-
 </body>
+</html>
