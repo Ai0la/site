@@ -53,8 +53,9 @@ html {
   user-select: none;
 }
 
-.Planet Kosmos {
-  font-family: "Graffiti", sans-serif
+.graffiti {
+  font-family: "Graffiti", sans-serif;
+  font-size: 100px;
 }
 
 #overlay-toggle {
