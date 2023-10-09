@@ -53,9 +53,8 @@ html {
   user-select: none;
 }
 
-.graffiti {
-  font-family: "Graffiti", monospace, sans-serif;
-  font-size: 100px;
+.Planet Kosmos {
+  font-family: "Graffiti", sans-serif
 }
 
 #overlay-toggle {
@@ -73,7 +72,7 @@ html {
   place-items: center;
   width: 100vw;
   height: 100vw;
-  color: rgb(255, 255, 255);
+  color: rgb(255, 0, 0);
   font-size: 2rem;
 }
 
@@ -93,7 +92,7 @@ html {
 body {
   font-family:monospace!important;
   background-color:#0f0f0f!important;
-  color:#fff!important
+  color:#c07171!important
 }
 
 .hover {
@@ -102,6 +101,8 @@ body {
   -webkit-text-stroke-color: #000000;
   color:rgb(119, 119, 119)!important;
   transition:.4s!important;
+  font-family: Graffiti; 
+  src: url(/font.otf) format('opentype');
 }
 
 .hover:hover {
@@ -110,6 +111,8 @@ body {
   stroke: yellow;
   -webkit-text-stroke-width:thin;
   -webkit-text-stroke-color: #000000;
+  font-family: Graffiti; 
+  src: url(/font.otf) format('opentype');
 }
 
 span::before {
@@ -150,12 +153,14 @@ span::before {
     height: 100%;
     z-index: -1;
 }
-  @font-face { 
-    font-family: Graffiti; src: url(/font.ttf); 
-    } 
 
-  @font-face { 
-    font-family: Graffiti; font-weight: bold; src: url(/font.ttf);
+@font-face { 
+  font-family: Graffiti; src: url(/font.otf) format('opentype'); 
+  } 
+
+@font-face { 
+  font-family: Graffiti; font-weight: bold; src: url(/font.otf) format('opentype');
+}
 
 @media(hover: hover) {
   .overlayhover {
@@ -177,3 +182,9 @@ span::before {
     visibility: hidden;
   }
 }
+
+.graffiti {
+  font-family: "Graffiti", monospace, sans-serif;
+  font-size: 100px;
+}
+
