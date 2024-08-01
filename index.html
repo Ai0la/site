@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>aiola</title>
+  <link rel="icon" href="./assets/favicon.ico">
+  <link rel="stylesheet" href="./assets/main.css">
+  <style>
+    #audio-player {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background-color: rgba(34, 34, 34, 0.8);
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Arial, sans-serif;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #audio-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #audio-controls button {
+      background-color: #000000;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 12px;
+      padding: 5px 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+
+    #audio-controls button:hover {
+      background-color: #ffffff9d;
+    }
+
+    #progress-bar {
+      width: 200px;
+      height: 5px;
+      background-color: #444;
+      border-radius: 5px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    #progress-bar div {
+      height: 100%;
+      background-color: #ffffff;
+      border-radius: 5px;
+    }
+
+    .album-cover {
+      width: 50px;
+      height: 50px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    #song-name {
+      font-size: 18px;
+      font-weight: bold;
+      font-family: 'Arial Narrow', Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body onresize="resize()" onload="main()">
+  <canvas id="canvas-background" width="1920" height="1080"></canvas>
+  <script src="./assets/cursor.js"></script>
+  <script>
+    function videoPlay() {
+      var video = document.getElementById("video");
+      video.volume = 0.35;
+      video.play();
+    }
+  </script>
+
+  <video loop="" preload="auto" class="vidoverlay" id="video" playsinline>
+    <source src="./assets/videoplayback.mp4" type="video/mp4">
+  </video>
+
+  <audio id="audio" preload="auto"></audio>
+
+  <input type="checkbox" autocomplete="off" id="overlay-toggle">
+  <div class="overlay fullscreen">
+    <label for="overlay-toggle" id="play-button">
+      <span class="overlayhover hover" style="font-family: Graffiti; font-size: 100px;">click</span>
+    </label>
+  </div>
+
+  <div id="center" align="center">
+    <span>
+      <b><p class="hover graffiti" style="font-size: 100px; font-family:Graffiti;">aiola</p></b>
+      <br>
+      <a href="https://discordapp.com/users/1169060950473719888" target="_blank" class="hover" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 30px;">DISCORD</a>
+      <a href="https://vouched.gg/account.php?uid=5" target="_blank" class="hover" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 30px;">VOUCHED</a>
+      <a href="https://t.me/aiolas" target="_blank" class="hover" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 30px;">TELEGRAM</a>
+    </span>
+  </div>
+
+  <div id="audio-player">
+    <img src="./assets/song1.png" alt="Album Cover" class="album-cover" id="album-cover">
+    <div>
+      <div id="audio-controls">
+        <button id="prev-button">&#9664; Prev</button>
+        <button id="play-pause">Play</button>
+        <button id="next-button">Next &#9654;</button>
+      </div>
+      <span id="song-name">Song Name</span>
+      <div id="progress-bar" onclick="seek(event)">
+        <div id="progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var audio = document.getElementById('audio');
+    var playPauseButton = document.getElementById('play-pause');
+    var prevButton = document.getElementById('prev-button');
+    var nextButton = document.getElementById('next-button');
+    var progressBar = document.getElementById('progress-bar');
+    var progress = document.getElementById('progress');
+    var songName = document.getElementById('song-name');
+    var albumCover = document.getElementById('album-cover');
+
+    var isPlaying = false;
+    var currentSongIndex = 0;
+
+    var playlist = [
+      { name: "Just for Now", src: "./assets/song1.mp3", cover: "./assets/song1.png" },
+      { name: "3am (Freestyle)", src: "./assets/song2.mp3", cover: "./assets/song2.png" },
+      { /*name: "Song 3", src: "./assets/song3.mp3", cover: "./assets/song3.png" },
+      { name: "Song 4", src: "./assets/song4.mp3", cover: "./assets/song4.png" },
+      { name: "Song 5", src: "./assets/song5.mp3", cover: "./assets/song5.png" },
+      { name: "Song 6", src: "./assets/song6.mp3", cover: "./assets/song6.png" },
+      { name: "Song 7", src: "./assets/song7.mp3", cover: "./assets/song7.png" */}
+    ];
+
+    function playSong(index) {
+      currentSongIndex = index;
+      audio.src = playlist[index].src;
+      songName.textContent = playlist[index].name;
+      albumCover.src = playlist[index].cover;
+      audio.play();
+      playPauseButton.textContent = 'Pause';
+      isPlaying = true;
+    }
+
+    playPauseButton.addEventListener('click', function() {
+      if (isPlaying) {
+        audio.pause();
+        playPauseButton.textContent = 'Play';
+      } else {
+        audio.play();
+        playPauseButton.textContent = 'Pause';
+      }
+      isPlaying = !isPlaying;
+    });
+
+    prevButton.addEventListener('click', function() {
+      currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+      playSong(currentSongIndex);
+    });
+
+    nextButton.addEventListener('click', function() {
+      currentSongIndex = (currentSongIndex + 1) % playlist.length;
+      playSong(currentSongIndex);
+    });
+
+    audio.addEventListener('timeupdate', function() {
+      var percentage = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = percentage + '%';
+    });
+
+    function seek(event) {
+      var percent = event.offsetX / progressBar.offsetWidth;
+      audio.currentTime = percent * audio.duration;
+    }
+
+    // Attach playSong to the click button
+    document.getElementById('play-button').addEventListener('click', function() {
+      playSong(currentSongIndex);
+    });
+  </script>
+</body>
+</html>
