@@ -29,7 +29,6 @@
     cursor: none;
   }
 
-  /* --- CUSTOM CURSOR --- */
   #cursor {
     position: fixed; top: 0; left: 0; z-index: 9999;
     pointer-events: none;
@@ -55,16 +54,13 @@
   body.hovered #cursor-dot { width: 14px; height: 14px; }
   body.hovered #cursor-ring { width: 50px; height: 50px; opacity: 0.3; }
 
-  /* --- VIDEO BG --- */
-  .vid-bg {
+  #bg-canvas {
     position: fixed; inset: 0; z-index: 0;
     width: 100%; height: 100%;
-    object-fit: cover;
-    filter: brightness(0.28) saturate(0.6);
     pointer-events: none;
+    display: block;
   }
 
-  /* --- NOISE OVERLAY --- */
   .noise {
     position: fixed; inset: 0; z-index: 1;
     pointer-events: none;
@@ -73,7 +69,6 @@
     background-size: 200px;
   }
 
-  /* --- SCANLINES --- */
   .scanlines {
     position: fixed; inset: 0; z-index: 2;
     pointer-events: none;
@@ -86,7 +81,6 @@
     );
   }
 
-  /* --- CLICK GATE --- */
   #gate {
     position: fixed; inset: 0; z-index: 100;
     display: flex; align-items: center; justify-content: center;
@@ -114,7 +108,6 @@
   }
   @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 
-  /* --- MAIN CONTENT --- */
   #main {
     position: fixed; inset: 0; z-index: 50;
     display: flex; flex-direction: column;
@@ -160,7 +153,6 @@
   }
   #main.visible .role { transform: translateY(0); opacity: 1; }
 
-  /* --- LINKS --- */
   .links {
     display: flex; gap: 28px;
     margin-top: 36px;
@@ -191,7 +183,6 @@
   .links a:hover { color: var(--white); }
   .links a:hover::after { width: 100%; }
 
-  /* --- MUSIC PLAYER --- */
   #player {
     position: fixed;
     bottom: 28px; left: 28px;
@@ -237,7 +228,6 @@
     margin-top: 2px;
   }
 
-  /* Progress */
   #progress-track {
     width: 100%; height: 3px;
     background: rgba(245,240,232,0.12);
@@ -268,7 +258,6 @@
   }
   #progress-track:hover #progress-thumb { opacity: 1; }
 
-  /* Time */
   .time-row {
     display: flex; justify-content: space-between;
     font-size: 9px;
@@ -278,7 +267,6 @@
     margin-bottom: 10px;
   }
 
-  /* Controls */
   .player-controls {
     display: flex; align-items: center; justify-content: center;
     gap: 20px;
@@ -304,10 +292,8 @@
   }
   .ctrl-btn.play-btn:hover { background: var(--accent); transform: scale(1.08); }
 
-  /* SVG icons */
   .icon { display: block; fill: currentColor; }
 
-  /* --- CORNER TAG --- */
   #corner-tag {
     position: fixed; bottom: 28px; right: 28px;
     z-index: 60;
@@ -322,34 +308,26 @@
   }
   #corner-tag.visible { opacity: 1; }
 
-  /* Hover cursor expand trigger */
   a, button, [role="button"] { cursor: none; }
 </style>
 </head>
 <body>
 
-<!-- Custom cursor -->
 <div id="cursor">
   <div id="cursor-ring"></div>
   <div id="cursor-dot"></div>
 </div>
 
-<!-- Background video -->
-<video class="vid-bg" id="bgvid" loop muted playsinline preload="auto">
-  <source src="https://vouched.gg/images/aiolalolvid.mp4" type="video/mp4">
-</video>
+<canvas id="bg-canvas"></canvas>
 
-<!-- Overlays -->
 <div class="noise"></div>
 <div class="scanlines"></div>
 
-<!-- Click gate -->
 <div id="gate">
   <div id="gate-title">aiola</div>
   <div id="gate-sub">[ click anywhere to enter ]</div>
 </div>
 
-<!-- Main content -->
 <div id="main">
   <div class="name-block">
     <span class="name-text" id="name-letters"></span>
@@ -363,7 +341,6 @@
   </div>
 </div>
 
-<!-- Music player -->
 <div id="player">
   <div class="player-top">
     <img class="album-art" id="album-art" src="./assets/song1.png" alt="Album cover">
@@ -383,19 +360,16 @@
   </div>
 
   <div class="player-controls">
-    <!-- Prev -->
     <button class="ctrl-btn" id="btn-prev" aria-label="Previous">
       <svg class="icon" width="18" height="18" viewBox="0 0 24 24">
         <path d="M19 20L9 12l10-8v16zM5 4h2v16H5z"/>
       </svg>
     </button>
-    <!-- Play/Pause -->
     <button class="ctrl-btn play-btn" id="btn-play" aria-label="Play">
       <svg class="icon" id="play-icon" width="14" height="14" viewBox="0 0 24 24">
         <path d="M8 5v14l11-7z"/>
       </svg>
     </button>
-    <!-- Next -->
     <button class="ctrl-btn" id="btn-next" aria-label="Next">
       <svg class="icon" width="18" height="18" viewBox="0 0 24 24">
         <path d="M5 4l10 8-10 8V4zm14 0h-2v16h2z"/>
@@ -404,13 +378,11 @@
   </div>
 </div>
 
-<!-- Corner tag -->
 <div id="corner-tag" role="presentation">aiola.lol / 2025</div>
 
 <audio id="audio" preload="auto"></audio>
 
 <script>
-// --- Cursor ---
 const cursorDot = document.getElementById('cursor-dot');
 const cursorRing = document.getElementById('cursor-ring');
 let mx = 0, my = 0, rx = 0, ry = 0;
@@ -430,7 +402,6 @@ document.querySelectorAll('a, button').forEach(el => {
   el.addEventListener('mouseleave', () => document.body.classList.remove('hovered'));
 });
 
-// --- Name letters ---
 const letters = 'aiola';
 const nameEl = document.getElementById('name-letters');
 letters.split('').forEach((c, i) => {
@@ -440,25 +411,228 @@ letters.split('').forEach((c, i) => {
   nameEl.appendChild(s);
 });
 
-// --- Gate ---
 const gate = document.getElementById('gate');
 const mainEl = document.getElementById('main');
 const player = document.getElementById('player');
 const cornerTag = document.getElementById('corner-tag');
-const bgvid = document.getElementById('bgvid');
 
 gate.addEventListener('click', enter);
 function enter() {
   gate.classList.add('hidden');
-  bgvid.play().catch(() => {});
   mainEl.classList.add('visible');
   player.classList.add('visible');
   cornerTag.classList.add('visible');
-  // auto-start first song
   setTimeout(() => playSong(0), 400);
 }
 
-// --- Player ---
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let W, H, mouse = { x: -9999, y: -9999 };
+  let nodes = [], frame = 0;
+
+  const NODE_COUNT = 110;
+  const MAX_DIST = 160;
+  const MOUSE_REPEL = 120;
+  const REPEL_STRENGTH = 2.2;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function makeNode(i) {
+    const type = i < 12 ? 'orbit' : i < 30 ? 'fast' : 'drift';
+    return {
+      x: rand(0, W), y: rand(0, H),
+      vx: rand(-0.18, 0.18), vy: rand(-0.18, 0.18),
+      ox: 0, oy: 0,
+      r: rand(1.2, type === 'orbit' ? 3.2 : 2.0),
+      baseAlpha: rand(0.18, type === 'fast' ? 0.55 : 0.38),
+      alpha: 0,
+      pulse: rand(0, Math.PI * 2),
+      pulseSpeed: rand(0.004, 0.014),
+      type,
+      angle: rand(0, Math.PI * 2),
+      orbitR: rand(60, 200),
+      orbitSpeed: rand(0.0003, 0.0009) * (Math.random() > 0.5 ? 1 : -1),
+      cx: rand(0, W), cy: rand(0, H),
+    };
+  }
+
+  function init() {
+    resize();
+    nodes = Array.from({ length: NODE_COUNT }, (_, i) => makeNode(i));
+  }
+
+  document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  window.addEventListener('resize', () => { resize(); });
+
+  const ripples = [];
+  document.addEventListener('click', e => {
+    if (document.getElementById('gate').classList.contains('hidden')) {
+      ripples.push({ x: e.clientX, y: e.clientY, r: 0, maxR: 220, alpha: 0.22, dead: false });
+    }
+  });
+
+  function drawRipples() {
+    ripples.forEach(rip => {
+      rip.r += 4.5;
+      rip.alpha *= 0.93;
+      if (rip.r > rip.maxR || rip.alpha < 0.005) { rip.dead = true; return; }
+      ctx.beginPath();
+      ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(180,180,180,${rip.alpha})`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+    });
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      if (ripples[i].dead) ripples.splice(i, 1);
+    }
+  }
+
+  function drawGrid() {
+    const spacing = 80;
+    ctx.lineWidth = 0.3;
+    const t = frame * 0.0004;
+    for (let x = 0; x < W; x += spacing) {
+      const shift = Math.sin(t + x * 0.01) * 6;
+      ctx.beginPath();
+      ctx.moveTo(x + shift, 0);
+      ctx.lineTo(x - shift, H);
+      ctx.strokeStyle = `rgba(80,80,80,0.07)`;
+      ctx.stroke();
+    }
+    for (let y = 0; y < H; y += spacing) {
+      const shift = Math.cos(t + y * 0.01) * 6;
+      ctx.beginPath();
+      ctx.moveTo(0, y + shift);
+      ctx.lineTo(W, y - shift);
+      ctx.strokeStyle = `rgba(80,80,80,0.07)`;
+      ctx.stroke();
+    }
+  }
+
+  const dust = Array.from({ length: 60 }, () => ({
+    x: Math.random() * 1920, y: Math.random() * 1080,
+    s: Math.random() * 0.5 + 0.2,
+    a: Math.random() * 0.18 + 0.04,
+    vx: (Math.random() - 0.5) * 0.06,
+    vy: -Math.random() * 0.08 - 0.02,
+  }));
+
+  function drawDust() {
+    dust.forEach(d => {
+      d.x += d.vx; d.y += d.vy;
+      if (d.y < -5) { d.y = H + 5; d.x = Math.random() * W; }
+      if (d.x < 0) d.x = W; if (d.x > W) d.x = 0;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.s, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(200,200,200,${d.a})`;
+      ctx.fill();
+    });
+  }
+
+  function tick() {
+    frame++;
+    ctx.clearRect(0, 0, W, H);
+
+    const vg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.72);
+    vg.addColorStop(0, 'rgba(22,22,22,1)');
+    vg.addColorStop(1, 'rgba(4,4,4,1)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, W, H);
+
+    drawGrid();
+
+    nodes.forEach(n => {
+      n.pulse += n.pulseSpeed;
+      const pulsed = Math.sin(n.pulse) * 0.5 + 0.5;
+
+      if (n.type === 'orbit') {
+        n.angle += n.orbitSpeed;
+        n.x = n.cx + Math.cos(n.angle) * n.orbitR;
+        n.y = n.cy + Math.sin(n.angle) * n.orbitR;
+        n.cx += n.vx * 0.3; n.cy += n.vy * 0.3;
+        if (n.cx < 0) n.cx = W; if (n.cx > W) n.cx = 0;
+        if (n.cy < 0) n.cy = H; if (n.cy > H) n.cy = 0;
+      } else {
+        const dx = n.x - mouse.x, dy = n.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_REPEL) {
+          const force = (MOUSE_REPEL - dist) / MOUSE_REPEL;
+          n.vx += (dx / dist) * force * REPEL_STRENGTH * 0.08;
+          n.vy += (dy / dist) * force * REPEL_STRENGTH * 0.08;
+        }
+        n.vx *= 0.97; n.vy *= 0.97;
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0) n.x = W; if (n.x > W) n.x = 0;
+        if (n.y < 0) n.y = H; if (n.y > H) n.y = 0;
+      }
+
+      n.alpha = n.baseAlpha * (0.6 + pulsed * 0.4);
+    });
+
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < MAX_DIST) {
+          const t = 1 - d / MAX_DIST;
+          const mx2 = (a.x + b.x) / 2, my2 = (a.y + b.y) / 2;
+          const mdist = Math.sqrt((mx2 - mouse.x) ** 2 + (my2 - mouse.y) ** 2);
+          const boost = mdist < 200 ? (1 - mdist / 200) * 0.5 : 0;
+          const alpha = t * 0.22 + boost * 0.3;
+          const grey = Math.floor(120 + t * 60);
+          ctx.strokeStyle = `rgba(${grey},${grey},${grey},${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    const mg = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, MOUSE_REPEL * 1.8);
+    mg.addColorStop(0, 'rgba(140,140,140,0.04)');
+    mg.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = mg;
+    ctx.fillRect(0, 0, W, H);
+
+    nodes.forEach(n => {
+      const isnear = Math.sqrt((n.x - mouse.x) ** 2 + (n.y - mouse.y) ** 2) < MOUSE_REPEL;
+      const glowR = n.r * (isnear ? 2.5 : 1.8);
+      const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR);
+      const grey = isnear ? 220 : 160;
+      grd.addColorStop(0, `rgba(${grey},${grey},${grey},${n.alpha * (isnear ? 1.5 : 1)})`);
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r * (isnear ? 1.4 : 1), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${grey},${grey},${grey},${Math.min(n.alpha * 2, 0.9)})`;
+      ctx.fill();
+    });
+
+    drawDust();
+    drawRipples();
+
+    requestAnimationFrame(tick);
+  }
+
+  init();
+  tick();
+})();
+
 const audio = document.getElementById('audio');
 const songNameEl = document.getElementById('song-name');
 const albumArtEl = document.getElementById('album-art');
@@ -555,7 +729,6 @@ progressTrack.addEventListener('click', e => {
   audio.currentTime = pct * audio.duration;
 });
 
-// Init song name
 songNameEl.textContent = playlist[0].name;
 albumArtEl.src = playlist[0].cover;
 </script>
